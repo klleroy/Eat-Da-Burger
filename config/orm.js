@@ -1,109 +1,30 @@
-// Import MySQL connection.
-const connection = require("../config/connection.js");
+const connection = require("./connection.js");
 
-// Helper function for SQL syntax.
-// Let's say we want to pass 3 values into the mySQL query.
-// In order to write the query, we need 3 question marks.
-// The above helper function loops through and creates an array of question marks - ["?", "?", "?"] - and turns it into a string.
-// ["?", "?", "?"].toString() => "?,?,?";
-    // function built into mysql package
-        // function printQuestionMarks(num) {
-        //   var arr = [];
+function dbQuery(sql, inputs) {
+     return new Promise((resolve, reject) => {
+          connection.query(sql, inputs, (err, res) => {
+               if (err) reject(err, res);
+               resolve(res);
+          });
+     });
+}
 
-        //   for (var i = 0; i < num; i++) {
-        //     arr.push("?");
-        //   }
-
-        //   return arr.toString();
-        // }
-
-// Helper function to convert object key/value pairs to SQL syntax
-    // function built into mysql package
-        // function objToSql(ob) {
-        //   var arr = [];
-
-        //   // loop through the keys and push the key/value as a string int arr
-        //   for (var key in ob) {
-        //     var value = ob[key];
-        //     // check to skip hidden properties
-        //     if (Object.hasOwnProperty.call(ob, key)) {
-        //       // if string with spaces, add quotations (Lana Del Grey => 'Lana Del Grey')
-        //       if (typeof value === "string" && value.indexOf(" ") >= 0) {
-        //         value = "'" + value + "'";
-        //       }
-        //       // e.g. {name: 'Lana Del Grey'} => ["name='Lana Del Grey'"]
-        //       // e.g. {sleepy: true} => ["sleepy=true"]
-        //       arr.push(key + "=" + value);
-        //     }
-        //   }
-
-        //   // translate array of strings to a single comma-separated string
-        //   return arr.toString();
-        // }
-
-// Object for all our SQL statement functions.
 const orm = {
-  all: function(tableInput, cb) {
-    const queryString = "SELECT * FROM " + tableInput + ";";
-    connection.query(queryString, function(err, result) {
-      if (err) {
-        throw err;
-      }
-      cb(result);
-    });
-  },
-  create: function(table, cols, vals, cb) {
-    const queryString = "INSERT INTO " + table;
+     selectAll: (table) => {
+          return dbQuery(
+               'select * from ??',
+               [table]);
+     },
+     insertOne: (table, column, value) => {
+          return dbQuery(
+               'insert into ?? values ?',
+               [table, column, value]);
+     },
+     updateOne: (table, column, value) => {
+          return dbQuery(
+               'update ?? SET ?? = ? where id = ? limit 1',
+               [table, column, value]);
+     }
+}
 
-    queryString += " (";
-    queryString += cols.toString();
-    queryString += ") ";
-    queryString += "VALUES (";
-    queryString += '?' // replace with a value array;
-    queryString += ") ";
-
-    console.log(queryString);
-
-    connection.query(queryString, vals, function(err, result) {
-      if (err) {
-        throw err;
-      }
-
-      cb(result);
-    });
-  },
-  // An example of objColVals would be {name: panther, sleepy: true}
-  update: function(table, objColVals, condition, cb) {
-    const queryString = "UPDATE " + table;
-
-    queryString += " SET ";
-    queryString += '?'; // replace with object value
-    queryString += " WHERE ";
-    queryString += condition;
-
-    console.log(queryString);
-    connection.query(queryString, function(err, result) {
-      if (err) {
-        throw err;
-      }
-
-      cb(result);
-    });
-  },
-  delete: function(table, condition, cb) {
-    const queryString = "DELETE FROM " + table;
-    queryString += " WHERE ";
-    queryString += condition;
-
-    connection.query(queryString, function(err, result) {
-      if (err) {
-        throw err;
-      }
-
-      cb(result);
-    });
-  }
-};
-
-// Export the orm object for the model (cat.js).
 module.exports = orm;

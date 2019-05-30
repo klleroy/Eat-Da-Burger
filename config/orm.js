@@ -2,10 +2,12 @@ const connection = require("./connection.js");
 
 function dbQuery(sql, inputs) {
      return new Promise((resolve, reject) => {
-          connection.query(sql, inputs, (err, res) => {
+          var query = connection.query(sql, inputs, (err, res) => {
                if (err) reject(err, res);
                resolve(res);
           });
+
+          console.log(query.sql);
      });
 }
 
@@ -17,13 +19,13 @@ const orm = {
      },
      insertOne: (table, column, value) => {
           return dbQuery(
-               'insert into ?? values ?',
+               'insert into ?? (??) values (?)',
                [table, column, value]);
      },
-     updateOne: (table, column, value) => {
+     updateOne: (table, column, value, id) => {
           return dbQuery(
                'update ?? SET ?? = ? where id = ? limit 1',
-               [table, column, value]);
+               [table, column, value, id]);
      }
 }
 

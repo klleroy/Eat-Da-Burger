@@ -9,7 +9,7 @@ const burger = {
       return orm.insertOne('burgers', 'burger_name', burgerName)
     },
     updateOne: (id) => {
-      return orm.updateOne('burgers', 'devoured', true, id);
+      return orm.updateOne('burgers', id, 'devoured', true);
     }
   };
   

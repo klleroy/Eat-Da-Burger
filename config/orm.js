@@ -2,7 +2,7 @@ const connection = require("./connection.js");
 
 function dbQuery(sql, inputs) {
      return new Promise((resolve, reject) => {
-          var query = connection.query(sql, inputs, (err, res) => {
+          const query = connection.query(sql, inputs, (err, res) => {
                if (err) reject(err, res);
                resolve(res);
           });
@@ -22,10 +22,10 @@ const orm = {
                'insert into ?? (??) values (?)',
                [table, column, value]);
      },
-     updateOne: (table, column, value, id) => {
+     updateOne: (table, id, column, value) => {
           return dbQuery(
                'update ?? SET ?? = ? where id = ? limit 1',
-               [table, column, value, id]);
+               [table, id, column, value]);
      }
 }
 

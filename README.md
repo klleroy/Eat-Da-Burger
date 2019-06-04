@@ -53,7 +53,17 @@ Before you can install Node, you’ll need to install two other applications. Fo
 - Go to https://dev.mysql.com/downloads/windows/installer/5.7.html and download the version that matches your architecture.
 
 #### MacOS
-- Follow the instructions found here: [MacOS MySQL Workbench Installation](assets/readme/mysqlinstall_mac.md).
+- Follow the instructions found here: [MacOS MySQL Workbench Installation](public/assets/readme/mysqlinstall_mac.md).
+
+## Contributing
+- Fork it (https://github.com/jobu206/Eat-Da-Burger/fork)
+- Create your feature branch `git checkout -b feature/Eat-Da-Burger`
+- Commit your changes `git commit -am 'Add your Message Here'`
+- Push to the branch `git push origin feature/Eat-Da-Burger`
+- Create a new Pull Request
+
+## Support
+- Open a new issue [here](https://github.com/jobu206/Eat-Da-Burger/issues/new) for support.
 
 ## Author
 **Kevin LeRoy** - <a href="https://kevinleroy.me" target="_blank">https://kevinleroy.me</a>

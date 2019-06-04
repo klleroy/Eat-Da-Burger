@@ -1,0 +1,21 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+ }
+
+ ul {
+     list-style: none;
+ }
+
+ li {
+     padding-bottom: 5px;
+ }
+
+ #burgerPic,
+#devouredPic {
+	width: 50%;
+}
+
+#burgerName {
+    border: none;
+    border-bottom: 1px #000 solid;
+}

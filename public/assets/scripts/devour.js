@@ -27,12 +27,11 @@ $(function() {
 
     //Click event for "Devour me" button.
     $(".eatBurger").on("click", function(event) {
-        console.log(eat);
         let id = $(this).data("id");
         let eat = $(this).data("eat");
     
         let newEatState = {
-          devoured: 'true'
+          devoured: 1
         };
     
         // Send the PUT request using ajax.

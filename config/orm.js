@@ -14,19 +14,23 @@ function dbQuery(sql, inputs) {
 const orm = {
      selectAll: (table) => {
           return dbQuery(
-               'select * from ??',
+               'select * from ??;',
                [table]);
      },
      insertOne: (table, column, value) => {
           return dbQuery(
-               'insert into ?? (??) values (?)',
+               'insert into ?? (??) values (?);',
                [table, column, value]);
      },
-     updateOne: (table, column, id, value) => {
+     updateOne: (table, updateObject, value, condition) => {
           return dbQuery(
-               'update ?? SET ? where ?=? limit 1',
-               [table, column, id, value]);
+               'update ?? SET ?=? where ??=? limit 1;',
+               [table, updateObject, value, condition]);
      }
 }
 
 module.exports = orm;
+
+// UPDATE table_name
+// SET column1 = value1, column2 = value2, ...
+// WHERE condition;

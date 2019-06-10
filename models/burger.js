@@ -8,8 +8,8 @@ const burger = {
     insertOne: (burgerName) => {
       return orm.insertOne('burgers', 'burger_name', burgerName)
     },
-    updateOne: (id) => {
-      return orm.updateOne('burgers', id, 'devoured', true);
+    updateOne: (updateObject, condition) => {
+      return orm.updateOne('burgers', 'devoured', updateObject, condition);
     }
   };
   

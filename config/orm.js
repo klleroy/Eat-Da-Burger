@@ -22,10 +22,10 @@ const orm = {
                'insert into ?? (??) values (?);',
                [table, column, value]);
      },
-     updateOne: (table, updateObject, value, condition) => {
+     updateOne: (table, updateObject, id) => {
           return dbQuery(
-               'update ?? SET ?=? where ??=? limit 1;',
-               [table, updateObject, value, condition]);
+               'update ?? SET ? where id=? limit 1;',
+               [table, updateObject, id]);
      }
 }
 

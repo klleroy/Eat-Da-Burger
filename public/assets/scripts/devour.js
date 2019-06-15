@@ -37,7 +37,9 @@ $(function() {
         // Send the PUT request using ajax.
         $.ajax("/api/burgers/" + id, {
           type: "PUT",
-          data: newEatState
+          data: newEatState,
+          // data: JSON.stringify(newEatState),
+          // contentType: "application/json"
         }).then(
           function() {
             console.log("changed devour to", eat);

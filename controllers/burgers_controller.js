@@ -25,25 +25,26 @@ router.post("/api/burgers", function (req, res) {
 });
 
 router.put("/api/burgers/:id", function (req, res) {
-  const condition = "id = " + req.params.id;
+  // const condition = "id = " + req.params.id;
 
-  console.log("condition", condition);
+  // console.log("condition", condition);
 
   console.log(req.body);
   
   burger.updateOne(
-    req.body.devoured
-  , condition).then(function (result) {
-    res.redirect('/');
+    {devoured: req.body.devoured}
+  , req.params.id).then(function (result) {
     if (result.changedRows == 0) {
       // If no rows were changed, then the ID must not exist, so 404
       return res.status(404).end();
     } else {
-      return res.redirect('/');
+      return res.json('/');
       // res.status(200).end();
     }
-  });
+  })
 });
+
+
 
 // router.delete("/api/burger/:id", function(req, res) {
 //   const condition = "id = " + req.params.id;

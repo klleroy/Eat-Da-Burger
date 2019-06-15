@@ -1,6 +1,6 @@
 const orm = require('../config/orm');
 
-const burger = {
+let burger = {
     selectAll: () => {
       return orm.selectAll('burgers');
     },
@@ -8,8 +8,8 @@ const burger = {
     insertOne: (burgerName) => {
       return orm.insertOne('burgers', 'burger_name', burgerName)
     },
-    updateOne: (updateObject, condition) => {
-      return orm.updateOne('burgers', 'devoured', updateObject, condition);
+    updateOne: (updateObject, id) => {
+      return orm.updateOne('burgers', updateObject, id);
     }
   };
   
